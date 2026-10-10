@@ -1,0 +1,7 @@
+# Claude Code (projekt-spezifischer Kontext, nicht für andere relevant)
+.claude/
+CLAUDE.md
+
+# Temporäre Dateien
+test_*
+temp_*
