@@ -3,11 +3,25 @@
 Alle relevanten Änderungen an diesem Projekt werden hier dokumentiert.
 Format nach [Keep a Changelog](https://keepachangelog.com/de/1.1.0/), Versionierung nach [SemVer](https://semver.org/lang/de/).
 
-## [Unreleased]
+## [0.3.0] - 2026-10-10
+
+Rechteliste abgeglichen mit Citrix-Doku "Connection to VMware" (CVAD 2607 LTSR).
+
+### Hinzugefügt
+- Rolle `<cvRole>-root` mit `StorageProfile.*` und `InventoryService.Tagging.AttachTag`, zugewiesen auf dem Root-Folder ohne Vererbung (Vorgabe Citrix)
+- `VirtualMachine.Config.Rename` (für MCS Pflicht)
+- Schalter `-IncludeProvisioning`, `-IncludeImageSharing`, `-IncludeVTPM` für optionale Rechte
+- `-WhatIf`/`-Confirm`-Unterstützung
+- Warnung, wenn eine bestehende Berechtigung des Benutzers umgestellt wird
 
 ### Geändert
 - **Breaking:** Skript umbenannt von `Create-CitrixVIServerRole.ps1` in `New-CitrixVIUser.ps1` (zugelassenes PowerShell-Verb)
+- **Breaking:** `VirtualMachine.Provisioning.CloneTemplate` und `.DeployTemplate` nur noch mit `-IncludeProvisioning` (laut Citrix nur für Citrix Provisioning nötig)
+- Tagging- und StorageProfile-Rechte unabhängig von der vSphere-Version (vorher erst ab 7)
 - README: englischer Kopf (Kurzbeschreibung, Badges, What it does, Quickstart), Titel an Repo-Namen angepasst
+
+### Entfernt
+- `InventoryService.Tagging.ModifyUsedByForCategory` und `.ModifyUsedByForTag` (nicht in der Citrix-Doku). Bestehende Rollen behalten sie, da das Skript keine Rechte entfernt.
 
 ## [0.2.0] - 2026-10-10
 

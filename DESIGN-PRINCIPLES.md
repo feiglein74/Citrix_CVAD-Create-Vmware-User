@@ -39,6 +39,33 @@ if ($permission) { Set-VIPermission -Permission $permission -Role $role } else {
 ### Rechte werden nur ergänzt, nie entfernt
 `Set-VIRole -AddPrivilege` entfernt keine Rechte, die manuell hinzugefügt wurden. Das Skript überschreibt also keine bewussten Anpassungen im vCenter.
 
+### Rechteliste = Citrix-Doku
+Grundlage ist die Citrix-Doku "Connection to VMware" (aktuell CVAD 2607 LTSR). Rechte, die dort nicht stehen,
+kommen nicht in die Rolle; Rechte, die nur für bestimmte Funktionen nötig sind, gibt es nur per Schalter.
+
+```powershell
+# ❌ FALSCH - alles für alle Fälle, z. B. Cryptographer.* auch ohne vTPM
+$cvRoleIds += $cryptoIds
+
+# ✅ RICHTIG - Opt-in, sichtbar im Aufruf
+.\New-CitrixVIUser.ps1 ... -IncludeVTPM
+```
+
+**Warum?** Least-Privilege. Die Einschränkung ist dokumentiert (README, `Get-Help`) und per Schalter aufhebbar.
+
+### Zwei Rollen statt einer
+Citrix verlangt `StorageProfile.*` und `InventoryService.Tagging.AttachTag` auf dem Root-Folder **ohne** Vererbung,
+alles andere auf Datacenter-Ebene oder darunter **mit** Vererbung. Eine einzige Rolle auf dem Root-Folder ohne
+Vererbung würde die VM-Rechte wirkungslos machen, mit Vererbung gäbe es Rechte auf dem ganzen vCenter.
+Daher: `<cvRole>` auf `-Entity` (vererbt) und `<cvRole>-root` auf dem Root-Folder (nicht vererbt).
+
+Ausnahme: Ist `-Entity` der Root-Folder, wird alles in `<cvRole>` zusammengeführt, weil vCenter pro Benutzer
+und Objekt nur eine Berechtigung erlaubt.
+
+### Bestehende Berechtigungen werden umgestellt – sichtbar
+Hat der Benutzer auf dem Objekt schon eine andere Rolle, wird sie ersetzt und eine Warnung ausgegeben
+(alte → neue Rolle, Propagate). Mit `-WhatIf` lässt sich vorher sehen, was passiert.
+
 ### Benutzer wird nicht angelegt
 Das Konto muss vorher existieren (AD oder vsphere.local). PowerCLI kann keine AD-Konten anlegen, und das Anlegen von Konten gehört nicht in ein Berechtigungsskript.
 
