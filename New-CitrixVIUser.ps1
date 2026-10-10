@@ -10,16 +10,16 @@
 .NOTES
     Version: 0.2.0
 .EXAMPLE
-    .\Create-CitrixVIServerRole.ps1 -viServer vcenter.contoso.local -User 'CONTOSO\svc-citrix' -Entity 'DC01'
+    .\New-CitrixVIUser.ps1 -viServer vcenter.contoso.local -User 'CONTOSO\svc-citrix' -Entity 'DC01'
 
     Legt die Rolle "citrix" an und weist sie dem Benutzer auf dem Datacenter "DC01" zu,
     vererbt auf alle untergeordneten Objekte.
 .EXAMPLE
-    .\Create-CitrixVIServerRole.ps1 -viServer vcenter.contoso.local -User 'CONTOSO\svc-citrix' -cvRole 'Citrix-MCS' -Entity 'Cluster-VDI'
+    .\New-CitrixVIUser.ps1 -viServer vcenter.contoso.local -User 'CONTOSO\svc-citrix' -cvRole 'Citrix-MCS' -Entity 'Cluster-VDI'
 
     Weist die Rolle "Citrix-MCS" nur auf dem Cluster "Cluster-VDI" zu.
 .EXAMPLE
-    .\Create-CitrixVIServerRole.ps1 -viServer vcenter.contoso.local -User 'CONTOSO\svc-citrix' -Entity 'Datacenters'
+    .\New-CitrixVIUser.ps1 -viServer vcenter.contoso.local -User 'CONTOSO\svc-citrix' -Entity 'Datacenters'
 
     Weist die Rolle auf dem Root-Folder zu, also auf dem gesamten vCenter.
 #>

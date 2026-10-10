@@ -6,6 +6,7 @@ Format nach [Keep a Changelog](https://keepachangelog.com/de/1.1.0/), Versionier
 ## [Unreleased]
 
 ### Geändert
+- **Breaking:** Skript umbenannt von `Create-CitrixVIServerRole.ps1` in `New-CitrixVIUser.ps1` (zugelassenes PowerShell-Verb)
 - README: englischer Kopf (Kurzbeschreibung, Badges, What it does, Quickstart), Titel an Repo-Namen angepasst
 
 ## [0.2.0] - 2026-10-10

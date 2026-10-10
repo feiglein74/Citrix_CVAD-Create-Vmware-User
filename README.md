@@ -19,10 +19,10 @@ hosting connection and assigns it to the Citrix service account – instead of g
 
 ```powershell
 Install-Module VMware.PowerCLI -Scope CurrentUser
-.\Create-CitrixVIServerRole.ps1 -viServer vcenter.contoso.local -User 'CONTOSO\svc-citrix' -Entity 'DC01'
+.\New-CitrixVIUser.ps1 -viServer vcenter.contoso.local -User 'CONTOSO\svc-citrix' -Entity 'DC01'
 ```
 
-Use `-Entity 'Datacenters'` (root folder) to grant the role on the whole vCenter. Run `Get-Help .\Create-CitrixVIServerRole.ps1 -Full` for all parameters.
+Use `-Entity 'Datacenters'` (root folder) to grant the role on the whole vCenter. Run `Get-Help .\New-CitrixVIUser.ps1 -Full` for all parameters.
 
 > Detailed documentation is in German.
 
@@ -30,13 +30,13 @@ Use `-Entity 'Datacenters'` (root folder) to grant the role on the whole vCenter
 
 Ziel ist es, den Benutzer, den Citrix für seine Aktionen in VMWare benutzt, mit dem Prinzip "Least-Privilege" anzulegen.
 
-`Create-CitrixVIServerRole.ps1` legt im vCenter eine Rolle mit den von Citrix benötigten Rechten an
+`New-CitrixVIUser.ps1` legt im vCenter eine Rolle mit den von Citrix benötigten Rechten an
 (bzw. ergänzt eine bestehende) und weist sie dem Citrix-Dienstkonto zu.
 
 Voraussetzungen: VMware PowerCLI, ein bereits existierender Benutzer (AD oder vsphere.local).
 
 ```powershell
-.\Create-CitrixVIServerRole.ps1 -viServer vcenter.contoso.local -User 'CONTOSO\svc-citrix' -Entity 'DC01'
+.\New-CitrixVIUser.ps1 -viServer vcenter.contoso.local -User 'CONTOSO\svc-citrix' -Entity 'DC01'
 ```
 
 Pflicht: `-viServer`, `-User`, `-Entity` (Name des Inventarobjekts, z. B. Datacenter oder Cluster;

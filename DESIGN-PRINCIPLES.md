@@ -47,10 +47,10 @@ Wo das Konto Rechte bekommt, muss bewusst angegeben werden.
 
 ```powershell
 # ❌ FALSCH - impliziter Default: Rechte auf dem gesamten vCenter
-.\Create-CitrixVIServerRole.ps1 -viServer vc01 -User 'CONTOSO\svc-citrix'
+.\New-CitrixVIUser.ps1 -viServer vc01 -User 'CONTOSO\svc-citrix'
 
 # ✅ RICHTIG - Geltungsbereich explizit
-.\Create-CitrixVIServerRole.ps1 -viServer vc01 -User 'CONTOSO\svc-citrix' -Entity 'Cluster-VDI'
+.\New-CitrixVIUser.ps1 -viServer vc01 -User 'CONTOSO\svc-citrix' -Entity 'Cluster-VDI'
 ```
 
 **Warum?** Ein Default "gesamtes vCenter" widerspricht Least-Privilege und überrascht Admins.
